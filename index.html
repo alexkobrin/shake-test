@@ -9,30 +9,33 @@
 </head>
 <body>
   <div>TESt
-    coś się dzieje
-    <div id="lot" style="width: 200px; height: 200px; background-color: red ">
-      rt
-
-    </div>
+    
+    <button  id="request">Request orientation permission</button>
   </div>
-  <script>
-  const shakeDetector = new window.ShakeDetector();
  
-  const requestTrigger = document.getElementById('lot');
-// requestPermission argument is optional
-// default is document.documentElement
-// shakeDetector.requestPermission(requestTrigger).then(() => {
-//     // shakeDetector.start();
-//     document.getElementById("lot").style.backgroundColor = "blue";
-     
-// });
-const onShake = () => {
-     document.getElementById("lot").style.backgroundColor = "blue";
-}; 
-
-shakeDetector.requestPermission()
-//  new ShakeDetector().confirmPermissionGranted().subscribe(onShake).start();
+  <script type="text/javascript">
+   function permission () {
+    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+        // (optional) Do something before API request prompt.
+        DeviceMotionEvent.requestPermission()
+            .then( response => {
+            // (optional) Do something after API prompt dismissed.
+            if ( response == "granted" ) {
+                window.addEventListener( "devicemotion", (e) => {
+                    // do something for 'e' here.
+                })
+            }
+        })
+            .catch( console.error )
+    } else {
+        alert( "DeviceMotionEvent is not defined" );
+    }
+}
+const btn = document.getElementById( "request" );
+btn.addEventListener( "click", permission );
+</script>
  
-  </script>
+ 
+ 
 </body>
 </html>
