@@ -12,29 +12,10 @@
     Hey! This will be much better with sensors. Allow?
 </button>
 <div id="output_message"></div>
+<div id="restart"></div>
  
  
-  <!-- <script type="text/javascript">
-   function permission () {
-    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
-        // (optional) Do something before API request prompt.
-        DeviceMotionEvent.requestPermission()
-            .then( response => {
-            // (optional) Do something after API prompt dismissed.
-            if ( response == "granted" ) {
-                window.addEventListener( "devicemotion", (e) => {
-                    // do something for 'e' here.
-                })
-            }
-        })
-            .catch( console.error )
-    } else {
-        alert( "DeviceMotionEvent is not defined" );
-    }
-}
-const btn = document.getElementById( "request" );
-btn.addEventListener( "click", permission );
-</script> -->
+   
 <script> 
 var btn_reqPermission = document.getElementById("btn_reqPermission")
 btn_reqPermission.addEventListener("click", () => { this.checkMotionPermission() })
@@ -89,10 +70,17 @@ async function setMotionListeners() {
         // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
         // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
         if ((event.rotationRate.alpha > 256 || event.rotationRate.beta > 256 || event.rotationRate.gamma > 256)) {
-            this.output_message.innerHTML = "SHAKEN!"
-            setTimeout(() => {
-                this.message.innerHTML = null
-            }, "2000")
+          let i = 10
+
+          function clearMessage() {
+            if (i == 0)  return  this.message.innerHTML = null
+              i--
+              this.restart.innerHTML = i
+            }
+
+          this.output_message.innerHTML = "SHAKEN!"
+          clearMessage()
+ 
         }
     })
 }</script>
