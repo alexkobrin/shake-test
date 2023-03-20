@@ -74,13 +74,17 @@ async function setMotionListeners() {
           let i = 10
 
           function clearMessage() {
+             
             if (i == 0)  return  this.message.innerHTML = null
               i--
               this.restart.innerHTML = i
             }
 
           this.output_message.innerHTML = "SHAKEN!"
-          clearMessage()
+           
+          setTimeout(() => {
+            this.output_message.innerHTML = null
+          }, 2000);
  
         }
     })
