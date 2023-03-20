@@ -6,13 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <!-- <script src="https://unpkg.com/shake-detector"></script>  -->
+    <style>
+      .image {
+        background-position: center;
+         width: 200px;
+       height: 200px;
+         background-repeat: no-repeat;
+      }
+    </style>
   </head>
   <body>
     <button id="btn_reqPermission" style="display: none; padding: 2em">
       Hey! This will be much better with sensors. Allow?
     </button>
-    <div id="output_message"></div>
-    <div id="restart"></div>
+    <div id="output_message" class="image"></div>
+     
 
     <script>
       var btn_reqPermission = document.getElementById("btn_reqPermission");
@@ -60,7 +68,6 @@
         // MOTION LISTENER
         await window.addEventListener("devicemotion", (event) => {
           console.log("Device motion event: %O", event);
-
           // SHAKE EVENT
           // Using rotationRate, which essentially is velocity,
           // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
@@ -72,27 +79,11 @@
           ) {
             let i = 3;
             this.output_message.innerHTML = "SHAKEN!";
-            this.restart.innerHTML = i;
-
-            function decrement() {
-              i--;
-            }
-            let timer = setTimeout(function myTimer() {
-              decrement();
-              this.restart.innerHTML = i;
-              timer = setTimeout(myTimer, 1000);
-            }, 1000);
-
-            function resetMessage(){
-              restart.innerHTML = null;
-              output_message.innerHTML = null;
-              alert('rrrrr')
-            }
+            this.output_message.style.backgroundImage = "url('shake-startrek.gif')"; 
 
             setTimeout(() => {
-              clearTimeout(timer);
-              resetMessage()
-            }, 4000);
+              this.output_message.style.backgroundImage = null;
+            }, 2000);
           }
         });
       }
