@@ -10,7 +10,10 @@
 <body>
   <div>TESt
     coś się dzieje
-    <div id="lot"></div>
+    <div id="lot" style="width: 200px; height: 200px; background-color: red ">
+      rt
+
+    </div>
   </div>
   <script>
   const shakeDetector = new window.ShakeDetector();
@@ -18,10 +21,18 @@
   const requestTrigger = document.getElementById('lot');
 // requestPermission argument is optional
 // default is document.documentElement
-shakeDetector.requestPermission(requestTrigger).then(() => {
-    shakeDetector.start();
-    alert("coś się dziee")
-});
+// shakeDetector.requestPermission(requestTrigger).then(() => {
+//     // shakeDetector.start();
+//     document.getElementById("lot").style.backgroundColor = "blue";
+     
+// });
+const onShake = () => {
+     document.getElementById("lot").style.backgroundColor = "blue";
+}; 
+
+shakeDetector.requestPermission()
+//  new ShakeDetector().confirmPermissionGranted().subscribe(onShake).start();
+ 
   </script>
 </body>
 </html>
