@@ -70,7 +70,7 @@
             event.rotationRate.beta > 256 ||
             event.rotationRate.gamma > 256
           ) {
-            let i = 5;
+            let i = 3;
             this.output_message.innerHTML = "SHAKEN!";
             this.restart.innerHTML = i;
 
@@ -83,11 +83,12 @@
               timer = setTimeout(myTimer, 1000);
             }, 1000);
 
-            if ((i = 0)) {
+            setTimeout(() => {
               clearTimeout(timer);
               this.message.innerHTML = null;
               this.output_message.innerHTML = null;
-            }
+         
+            }, 3000);
           }
         });
       }
