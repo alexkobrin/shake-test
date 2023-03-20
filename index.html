@@ -84,10 +84,10 @@
               timer = setTimeout(myTimer, 1000);
             }, 1000);
 
-            setTimeout(() => {
+            setTimeout(() => { 
+              this.message.innerHTML = null
+              this.output_message.innerHTML = null;
               clearTimeout(timer);
-              this.message.innerHTML = "null"
-
             }, 5000);
           }
         });
