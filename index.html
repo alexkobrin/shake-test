@@ -83,12 +83,15 @@
               timer = setTimeout(myTimer, 1000);
             }, 1000);
 
-            setTimeout(() => {
-              clearTimeout(timer);
+            function resetMessage(){
               this.message.innerHTML = null;
               this.output_message.innerHTML = null;
-         
-            }, 3000);
+            }
+
+            setTimeout(() => {
+              clearTimeout(timer);
+              resetMessage()
+            }, 4000);
           }
         });
       }
