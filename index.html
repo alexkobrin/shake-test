@@ -21,6 +21,23 @@
         align-items: center;
         margin-top: 20px;
       }
+      .ding {
+        width: 50px;
+        height: auto;
+        object-fit: cover;
+      }
+      .btn {
+        margin-top: 20px;
+        font-size: 18px;
+        border-radius: 100px;
+        padding: 0.75rem 2rem;
+        cursor : pointer;
+      }
+      .btn:hover {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+      }
     </style>
   </head>
   <body>
@@ -28,28 +45,49 @@
       Hey! This will be much better with sensors. Allow?
     </button>
     <div class="container">
-      <div  style="margin-bottom: 20px"> <strong> Potrząśnij telefonem </strong></div>  
-     <div> Count :<span id="count" style="margin-bottom: 20px;"> <strong> 0</strong></span></div>   
-    <div id="output_message" class="image" ></div>
+      <div style="margin-bottom: 20px">
+        <strong> Potrząśnij telefonem </strong>
+      </div>
+      <div>
+        Count :<span id="count" style="margin-bottom: 20px">
+          <strong>0</strong></span
+        >
+      </div>
+
+      <div class="">
+        <img id="ding" class="ding" src="ding.jpg" alt="" />
+        <div id="output_message" class="image"></div>
+      </div>
+      <button
+        class="btn"
+        onclick="restart()"
+        style="margin-top: 20px; font-size: 18px"
+      >
+        Restart
+      </button>
     </div>
-    
 
     <script>
       const btn_reqPermission = document.getElementById("btn_reqPermission");
       const output_message = document.getElementById("output_message");
       const count = document.getElementById("count");
+      const ding = document.getElementById("ding");
 
       let i = 0;
 
       this.output_message.style.backgroundImage = "url('front.png')";
-      const restart = document.getElementById("restart");
+
       btn_reqPermission.addEventListener("click", () => {
         this.checkMotionPermission();
       });
 
-
       // ON PAGE LOAD
       this.checkMotionPermission();
+
+      const restart = function () {
+        i = 0;
+        this.output_message.style.backgroundImage = "url('front.png')";
+      };
 
       // FUNCTIONS
       async function checkMotionPermission() {
@@ -83,6 +121,14 @@
         await window.addEventListener("orientation", (event) => {
           console.log("Device orientation event: %O", event);
         });
+        await ding.addEventListener("click", (event) => {
+          i++;
+          this.count.innerHTML = i;
+          if (i > 5) {
+            this.output_message.style.backgroundImage = "url('winner.gif')";
+            this.count.innerHTML = 0;
+          }
+        });
 
         // MOTION LISTENER
         await window.addEventListener("devicemotion", (event) => {
@@ -92,19 +138,16 @@
           // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
           // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
 
-          
           if (
             event.rotationRate.alpha > 256 ||
             event.rotationRate.beta > 256 ||
             event.rotationRate.gamma > 256
           ) {
-           
             this.count.innerHTML = i;
             i++;
-            if (i >= 3) {
+            if (i >= 6) {
               this.output_message.style.backgroundImage = null;
-              this.output_message.style.innerHTML = "Wygrałeś coś ";
-               
+              this.output_message.innerHTML = "Wygrałeś coś";
             }
           }
         });
