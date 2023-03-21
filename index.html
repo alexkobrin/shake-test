@@ -47,7 +47,7 @@
     </button>
     <div class="container">
       <div style="margin-bottom: 20px">
-        <strong> Potrząśnij telefonem albo nacisni na dzwonek.   </strong>
+       <span style="text-align: center;"> <strong> Potrząśnij telefonem albo nacisni na dzwonek.   </strong></span>
       </div>
       <div>
         Count :<span id="count" style="margin-bottom: 20px">
@@ -147,8 +147,8 @@
             this.count.innerHTML = i;
             i++;
             if (i >= 6) {
-              this.output_message.style.backgroundImage = null;
-              this.output_message.innerHTML = "Wygrałeś coś";
+              his.output_message.style.backgroundImage = "url('winner.gif')";
+            this.count.innerHTML = 0;
             }
           }
         });
