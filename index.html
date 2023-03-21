@@ -9,9 +9,17 @@
     <style>
       .image {
         background-position: center;
-         width: 200px;
-       height: 200px;
-         background-repeat: no-repeat;
+        width: 200px;
+        height: 200px;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -19,11 +27,16 @@
     <button id="btn_reqPermission" style="display: none; padding: 2em">
       Hey! This will be much better with sensors. Allow?
     </button>
-    <div id="output_message" class="image"></div>
-     
+    <div class="container">
+      <div  style="margin-bottom: 20px"> <strong> Potrząśnij telefonem </strong></div>  
+      <div id="count" style="margin-bottom: 20px"> <strong> Count : 0</strong></div>  
+    <div id="output_message" class="image" style="background-image:  url('front.png')"></div>
+    </div>
+    
 
     <script>
       var btn_reqPermission = document.getElementById("btn_reqPermission");
+      var count = document.getElementById("count");
       const restart = document.getElementById("restart");
       btn_reqPermission.addEventListener("click", () => {
         this.checkMotionPermission();
@@ -72,19 +85,23 @@
           // Using rotationRate, which essentially is velocity,
           // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
           // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
+
+          let i = 0;
+          this.count.style.display = "none"
+         
           if (
             event.rotationRate.alpha > 256 ||
             event.rotationRate.beta > 256 ||
             event.rotationRate.gamma > 256
           ) {
-            let i = 3;
-            this.output_message.innerHTML = "SHAKEN!";
-            this.output_message.style.backgroundImage = "url('shake-startrek.gif')"; 
-
-            setTimeout(() => {
+            this.count.innerHTML = i;
+            this.count.style.display = "block"
+            i++;
+            if (i >= 3) {
               this.output_message.style.backgroundImage = null;
-              this.output_message.innerHTML = null;
-            }, 2000);
+              this.output_message.style.innerHTML = "Wygrałeś coś ";
+               
+            }
           }
         });
       }
