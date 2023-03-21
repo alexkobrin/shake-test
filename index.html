@@ -25,6 +25,7 @@
         width: 50px;
         height: auto;
         object-fit: cover;
+        cursor: pointer;
       }
       .btn {
         margin-top: 20px;
@@ -46,7 +47,7 @@
     </button>
     <div class="container">
       <div style="margin-bottom: 20px">
-        <strong> Potrząśnij telefonem </strong>
+        <strong> Potrząśnij telefonem albo nacisni na dzwonek.   </strong>
       </div>
       <div>
         Count :<span id="count" style="margin-bottom: 20px">
@@ -124,7 +125,7 @@
         await ding.addEventListener("click", (event) => {
           i++;
           this.count.innerHTML = i;
-          if (i > 5) {
+          if (i > 3) {
             this.output_message.style.backgroundImage = "url('winner.gif')";
             this.count.innerHTML = 0;
           }
