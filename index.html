@@ -29,19 +29,24 @@
     </button>
     <div class="container">
       <div  style="margin-bottom: 20px"> <strong> Potrząśnij telefonem </strong></div>  
-      <div id="count" style="margin-bottom: 20px ; display: none"> <strong> Count : 0</strong></div>  
-    <div id="output_message" class="image" style="background-image:  url('front.png')"></div>
+     <div> Count :<span id="count" style="margin-bottom: 20px;"> <strong> 0</strong></span></div>   
+    <div id="output_message" class="image" ></div>
     </div>
     
 
     <script>
-      var btn_reqPermission = document.getElementById("btn_reqPermission");
-      var count = document.getElementById("count");
-      
+      const btn_reqPermission = document.getElementById("btn_reqPermission");
+      const output_message = document.getElementById("output_message");
+      const count = document.getElementById("count");
+
+      let i = 0;
+
+      this.output_message.style.backgroundImage = "url('front.png')";
       const restart = document.getElementById("restart");
       btn_reqPermission.addEventListener("click", () => {
         this.checkMotionPermission();
       });
+
 
       // ON PAGE LOAD
       this.checkMotionPermission();
@@ -87,14 +92,14 @@
           // we check each axis (alpha, beta, gamma) whether they cross a threshold (e.g. 256).
           // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
 
-          let i = 0;
+          
           if (
             event.rotationRate.alpha > 256 ||
             event.rotationRate.beta > 256 ||
             event.rotationRate.gamma > 256
           ) {
+           
             this.count.innerHTML = i;
-            this.count.style.display = "block"
             i++;
             if (i >= 3) {
               this.output_message.style.backgroundImage = null;
