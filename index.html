@@ -29,7 +29,7 @@
     </button>
     <div class="container">
       <div  style="margin-bottom: 20px"> <strong> Potrząśnij telefonem </strong></div>  
-      <div id="count" style="margin-bottom: 20px"> <strong> Count : 0</strong></div>  
+      <div id="count" style="margin-bottom: 20px ; display: none"> <strong> Count : 0</strong></div>  
     <div id="output_message" class="image" style="background-image:  url('front.png')"></div>
     </div>
     
@@ -37,6 +37,7 @@
     <script>
       var btn_reqPermission = document.getElementById("btn_reqPermission");
       var count = document.getElementById("count");
+      
       const restart = document.getElementById("restart");
       btn_reqPermission.addEventListener("click", () => {
         this.checkMotionPermission();
@@ -87,8 +88,6 @@
           // Lower = more sensitive, higher = less sensitive. 256 works nice, imho.
 
           let i = 0;
-          this.count.style.display = "none"
-         
           if (
             event.rotationRate.alpha > 256 ||
             event.rotationRate.beta > 256 ||
