@@ -87,7 +87,9 @@
 
       const restart = function () {
         i = 0;
+        this.count.innerHTML = 0;
         this.output_message.style.backgroundImage = "url('front.png')";
+         
       };
 
       // FUNCTIONS
@@ -127,7 +129,7 @@
           this.count.innerHTML = i;
           if (i > 3) {
             this.output_message.style.backgroundImage = "url('winner.gif')";
-            this.count.innerHTML = 0;
+            
           }
         });
 
@@ -144,11 +146,11 @@
             event.rotationRate.beta > 256 ||
             event.rotationRate.gamma > 256
           ) {
-            this.count.innerHTML = i;
             i++;
-            if (i >= 6) {
-              his.output_message.style.backgroundImage = "url('winner.gif')";
-            this.count.innerHTML = 0;
+            this.count.innerHTML = i;
+            if (i > 6) {
+              this.output_message.style.backgroundImage = "url('winner.gif')";
+              
             }
           }
         });
